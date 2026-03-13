@@ -22,4 +22,4 @@ in prep to move to OCP 4.20 as the default.
 * rdr chart previously used hardcoded and undocumented Vault secrets. Exposed these as variables and referenced
 previously documented AWS secret instead of creating a new one with the same material).
 * When OCP 4.20+ support is ready, there will be a v1.1 branch to use it.
-
+* Externalize all charts to prep for subsequent demo pattern.

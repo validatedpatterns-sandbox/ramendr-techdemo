@@ -1,6 +1,6 @@
 ---
 global:
-  pattern: ramendr-starter-kit
+  pattern: ramendr-techdemo
 
   options:
     useCSV: false

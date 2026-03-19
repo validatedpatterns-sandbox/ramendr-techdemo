@@ -1,7 +1,0 @@
----
-submariner:
-  ipsecNatPor: null
-  NATTEnable: true
-  cableDriver: vxlan
-  ipsecNatPort: null
-

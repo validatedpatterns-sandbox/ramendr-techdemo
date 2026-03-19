@@ -151,7 +151,6 @@ clusterGroup:
           - RespectIgnoreDifferences=true
       extraValueFiles:
         - '/overrides/values-cluster-names.yaml'
-        - '/overrides/submariner_workaround.yaml'
         - '/overrides/values-egv-dr.yaml'
       ignoreDifferences:
         # Prevent ArgoCD from pruning dynamically created OCM resources

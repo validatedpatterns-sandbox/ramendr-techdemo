@@ -13,7 +13,7 @@ clusterGroup:
     - policies
     - gitops-vms
     - boutique
-    - external-dns-operator
+#    - external-dns-operator
     - openshift-adp:
         operatorGroup: true
         targetNamespaces:
@@ -28,10 +28,10 @@ clusterGroup:
       namespace: openshift-cnv
       channel: stable
 
-    external-dns:
-      name: external-dns-operator
-      namespace: external-dns-operator
-      channel: stable-v1
+#    external-dns:
+#      name: external-dns-operator
+#      namespace: external-dns-operator
+#      channel: stable-v1
 
     node-health-check:
       name: node-healthcheck-operator
@@ -43,9 +43,9 @@ clusterGroup:
       namespace: openshift-workload-availability
       channel: stable
 
-    openshift-data-foundation:
-      name: odf-operator
-      namespace: openshift-storage
+#    openshift-data-foundation:
+#      name: odf-operator
+#      namespace: openshift-storage
 
     openshift-oadp:
       name: redhat-oadp-operator
@@ -90,7 +90,7 @@ clusterGroup:
       chart: ensure-openshift-console-plugins
       chartVersion: 0.1.*
       extraValueFiles:
-        - '$patternref/overrides/values-console-plugins-spokes.yaml'
+        - '$patternref/overrides/values-console-plugins-spokes-alt.yaml'
 
     golang-external-secrets:
       name: golang-external-secrets
@@ -106,14 +106,14 @@ clusterGroup:
       chart: openshift-virtualization-instance
       chartVersion: 0.1.*
 
-    odf:
-      name: odf
-      namespace: openshift-storage
-      project: resilient
-      chart: openshift-data-foundations
-      chartVersion: 0.2.*
-      extraValueFiles:
-        - '$patternref/overrides/values-odf-chart.yaml'
+#    odf:
+#      name: odf
+#      namespace: openshift-storage
+#      project: resilient
+#      chart: openshift-data-foundations
+#      chartVersion: 0.2.*
+#      extraValueFiles:
+#        - '$patternref/overrides/values-odf-chart.yaml'
 
     node-health-check-operator:
       name: node-health-check-operator
@@ -122,12 +122,12 @@ clusterGroup:
       chart: node-health-check-operator
       chartVersion: 0.1.*
 
-    external-dns-operator:
-      name: external-dns-operator
-      namespace: external-dns-operator
-      project: resilient
-      chart: external-dns-operator
-      chartVersion: 0.1.*
+#    external-dns-operator:
+#      name: external-dns-operator
+#      namespace: external-dns-operator
+#      project: resilient
+#      chart: external-dns-operator
+#      chartVersion: 0.1.*
 
     adp-data-protection:
       name: adp-data-protection-application

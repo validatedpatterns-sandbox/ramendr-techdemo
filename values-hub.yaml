@@ -15,10 +15,10 @@ clusterGroup:
     - aap-config
     - ansible-automation-platform
   subscriptions:
-    aap-operator:
-      name: ansible-automation-platform-operator
-      namespace: ansible-automation-platform
-      channel: stable-2.6
+#    aap-operator:
+#      name: ansible-automation-platform-operator
+#      namespace: ansible-automation-platform
+#      channel: stable-2.6
 
     acm:
       name: advanced-cluster-management
@@ -29,9 +29,9 @@ clusterGroup:
       name: odf-multicluster-orchestrator
       namespace: openshift-operators
 
-    openshift-data-foundation:
-      name: odf-operator
-      namespace: openshift-storage
+#    openshift-data-foundation:
+#      name: odf-operator
+#      namespace: openshift-storage
 
   argoCD:
     resourceTrackingMethod: annotation
@@ -60,21 +60,21 @@ clusterGroup:
   #   - '/overrides/values-{{ $.Values.global.hubClusterDomain }}.yaml'
   #   - '/overrides/values-{{ $.Values.global.localClusterDomain }}.yaml'
   applications:
-    aap:
-      name: ansible-automation-platform
-      namespace: ansible-automation-platform
-      project: hub
-      chart: ansible-automation-platform-instance
-      chartVersion: 0.1.*
-
-    aap-config:
-      name: aap-config
-      namespace: aap-config
-      project: hub
-      chart: aap-config
-      chartVersion: 0.1.*
-      extraValueFiles:
-        - $patternref/overrides/values-aap-config-rdr.yaml
+#    aap:
+#      name: ansible-automation-platform
+#      namespace: ansible-automation-platform
+#      project: hub
+#      chart: ansible-automation-platform-instance
+#      chartVersion: 0.1.*
+#
+#    aap-config:
+#      name: aap-config
+#      namespace: aap-config
+#      project: hub
+#      chart: aap-config
+#      chartVersion: 0.1.*
+#      extraValueFiles:
+#        - $patternref/overrides/values-aap-config-rdr.yaml
 
     acm:
       name: acm
@@ -93,67 +93,67 @@ clusterGroup:
       chart: ensure-openshift-console-plugins
       chartVersion: 0.1.*
       extraValueFiles:
-        - '$patternref/overrides/values-console-plugins-hub.yaml'
+        - '$patternref/overrides/values-console-plugins-hub-alt.yaml'
 
-    opp-policy:
-      name: opp-policy
-      namespace: openshift
-      project: opp
-      repoURL: https://github.com/validatedpatterns/opp-policy-chart.git
-      chartVersion: main
-      path: "."
-      annotations:
-        argocd.argoproj.io/sync-wave: "5"
-      syncPolicy:
-        automated: {}
-        retry:
-          limit: 20
-          backoff:
-            duration: 5s
-            factor: 2
-            maxDuration: 3m
-        syncOptions:
-          - syncTimeout=3600s
-          - CreateNamespace=true
-          - PrunePropagationPolicy=foreground
-          - RespectIgnoreDifferences=true
-          - ServerSideApply=true
-      extraValueFiles:
-        - '/overrides/values-cluster-names.yaml'
-      ignoreDifferences:
-      - group: operators.openshift.io
-        kind: Console
-        jsonPointers:
-          - /spec/plugins
-
-    rdr:
-      name: regional-dr
-      namespace: regional-dr
-      project: opp
-      repoURL: https://github.com/validatedpatterns/regionaldr-with-virt-chart.git
-      chartVersion: main
-      path: "."
-      annotations:
-        argocd.argoproj.io/sync-wave: "10"
-      syncPolicy:
-        automated: {}
-        # We have to wait for the clusters to build, whcih can take a long time
-        retry:
-          limit: 60
-          backoff:
-            duration: 5s
-            factor: 2
-            maxDuration: 3m
-        syncOptions:
-          - RespectIgnoreDifferences=true
-      extraValueFiles:
-        - '/overrides/values-cluster-names.yaml'
-        - '/overrides/values-egv-dr.yaml'
-      ignoreDifferences:
-        # Prevent ArgoCD from pruning dynamically created OCM resources
-        # These resources are created by OCM operators and should never be pruned
-        - group: internal.open-cluster-management.io
-          kind: ManagedClusterInfo
+#    opp-policy:
+#      name: opp-policy
+#      namespace: openshift
+#      project: opp
+#      repoURL: https://github.com/validatedpatterns/opp-policy-chart.git
+#      chartVersion: main
+#      path: "."
+#      annotations:
+#        argocd.argoproj.io/sync-wave: "5"
+#      syncPolicy:
+#        automated: {}
+#        retry:
+#          limit: 20
+#          backoff:
+#            duration: 5s
+#            factor: 2
+#            maxDuration: 3m
+#        syncOptions:
+#          - syncTimeout=3600s
+#          - CreateNamespace=true
+#          - PrunePropagationPolicy=foreground
+#          - RespectIgnoreDifferences=true
+#          - ServerSideApply=true
+#      extraValueFiles:
+#        - '/overrides/values-cluster-names.yaml'
+#      ignoreDifferences:
+#      - group: operators.openshift.io
+#        kind: Console
+#        jsonPointers:
+#          - /spec/plugins
+#
+#    rdr:
+#      name: regional-dr
+#      namespace: regional-dr
+#      project: opp
+#      repoURL: https://github.com/validatedpatterns/regionaldr-with-virt-chart.git
+#      chartVersion: main
+#      path: "."
+#      annotations:
+#        argocd.argoproj.io/sync-wave: "10"
+#      syncPolicy:
+#        automated: {}
+#        # We have to wait for the clusters to build, whcih can take a long time
+#        retry:
+#          limit: 60
+#          backoff:
+#            duration: 5s
+#            factor: 2
+#            maxDuration: 3m
+#        syncOptions:
+#          - RespectIgnoreDifferences=true
+#      extraValueFiles:
+#        - '/overrides/values-cluster-names.yaml'
+#        - '/overrides/values-egv-dr.yaml'
+#      ignoreDifferences:
+#        # Prevent ArgoCD from pruning dynamically created OCM resources
+#        # These resources are created by OCM operators and should never be pruned
+#        - group: internal.open-cluster-management.io
+#          kind: ManagedClusterInfo
 
     vault:
       name: vault
@@ -169,14 +169,14 @@ clusterGroup:
       chart: golang-external-secrets
       chartVersion: 0.2.*
 
-    odf:
-      name: odf
-      namespace: openshift-storage
-      project: opp
-      chart: openshift-data-foundations
-      chartVersion: 0.2.*
-      extraValueFiles:
-        - '$patternref/overrides/values-odf-chart.yaml'
+#    odf:
+#      name: odf
+#      namespace: openshift-storage
+#      project: opp
+#      chart: openshift-data-foundations
+#      chartVersion: 0.2.*
+#      extraValueFiles:
+#        - '$patternref/overrides/values-odf-chart.yaml'
 
   imperative:
     verbosity: "-vvv"

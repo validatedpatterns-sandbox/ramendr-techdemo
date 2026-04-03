@@ -9,7 +9,7 @@ set -euo pipefail
 # 4. Delete them from the gitops-vms namespace
 
 # Configuration
-HELM_CHART_URL="https://github.com/validatedpatterns/helm-charts/releases/download/main/edge-gitops-vms-0.2.10.tgz"
+HELM_CHART_URL="https://github.com/validatedpatterns/helm-charts/releases/download/main/edge-gitops-vms-0.3.3.tgz"
 WORK_DIR="/tmp/edge-gitops-vms-cleanup"
 VM_NAMESPACE="gitops-vms"
 DRPC_NAMESPACE="openshift-dr-ops"

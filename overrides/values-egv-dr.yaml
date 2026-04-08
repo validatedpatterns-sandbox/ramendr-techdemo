@@ -48,6 +48,7 @@ vms:
     dataSource: windows2k22
     efi: true
     mainDiskStorageBus: sata
+    storage: 50Gi
     #machineType: "pc-q35-9.2"
     ports:
       - name: ssh

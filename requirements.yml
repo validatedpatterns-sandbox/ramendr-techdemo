@@ -1,6 +1,6 @@
 ---
 collections:
   - kubernetes.core
-  - name: https://github.com/mhjacks/rhvp.cluster_utils
+  - name: https://github.com/validatedpatterns/rhvp.cluster_utils
     type: git
     version: v1

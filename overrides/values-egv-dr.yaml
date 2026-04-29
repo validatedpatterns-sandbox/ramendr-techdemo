@@ -66,6 +66,10 @@ boutique:
 redis:
   external:
     enabled: true
+    address: rhel9-redis-001.gitops-vms.svc
+
+frontend:
+  enableSingleSharedSession: true
 
 externalDataSources:
   windows2k22:

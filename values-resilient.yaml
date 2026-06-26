@@ -7,20 +7,22 @@ clusterGroup:
     resourceTrackingMethod: annotation
 
   namespaces:
-    - golang-external-secrets
-    - openshift-cnv
-    - openshift-storage
-    - policies
-    - gitops-vms
-    - boutique
-    - external-dns-operator
-    - openshift-adp:
-        operatorGroup: true
-        targetNamespaces:
-          - openshift-adp
-    - openshift-workload-availability:
-        operatorGroup: true
-        targetNamespaces:
+    openshift-cnv: {}
+    external-secrets-operator:
+      operatorGroup: true
+      targetNamespaces: []
+    openshift-storage: {}
+    policies: {}
+    gitops-vms: {}
+    boutique: {}
+    external-dns-operator: {}
+    openshift-adp:
+      operatorGroup: true
+      targetNamespaces:
+        - openshift-adp
+    openshift-workload-availability:
+      operatorGroup: true
+      targetNamespaces: []
 
   subscriptions:
     openshift-virtualization:
@@ -51,65 +53,49 @@ clusterGroup:
       name: redhat-oadp-operator
       namespace: openshift-adp
       channel: stable
+  
+    eso:
+      name: openshift-external-secrets-operator
+      namespace: external-secrets-operator
+      channel: stable-v1
 
-  projects:
+  argoProjects:
     - resilient
 
   sharedValueFiles:
     - '/overrides/values-resilient-{{ $.Values.global.clusterPlatform }}.yaml'
 
   imperative:
-    jobs:
-      - name: clean-golden-images
-        playbook: ansible/odf_fix_dataimportcrons.yml
-        verbosity: -vvv
-    clusterRoleYaml:
-      - apiGroups:
-          - "*"
-        resources:
-          - persistentvolumeclaims
-          - datavolumes
-          - dataimportcrons
-          - datasources
-        verbs:
-          - "*"
-      - apiGroups:
-          - "*"
-        resources:
-          - "*"
-        verbs:
-          - get
-          - list
-          - watch
+    jobs: []
 
   applications:
     ensure-openshift-console-plugins:
       name: ensure-openshift-console-plugins
       namespace: openshift-console
-      project: resilient
+      argoProject: resilient
       chart: ensure-openshift-console-plugins
       chartVersion: 0.1.*
       extraValueFiles:
         - '$patternref/overrides/values-console-plugins-spokes.yaml'
 
-    golang-external-secrets:
-      name: golang-external-secrets
-      namespace: golang-external-secrets
-      project: resilient
-      chart: golang-external-secrets
-      chartVersion: 0.2.*
+    openshift-external-secrets:
+      name: openshift-external-secrets
+      namespace: external-secrets
+      argoProject: resilient
+      chart: openshift-external-secrets
+      chartVersion: 0.0.*
 
     openshift-cnv:
       name: openshift-cnv
       namespace: openshift-cnv
-      project: resilient
+      argoProject: resilient
       chart: openshift-virtualization-instance
       chartVersion: 0.1.*
 
     odf:
       name: odf
       namespace: openshift-storage
-      project: resilient
+      argoProject: resilient
       chart: openshift-data-foundations
       chartVersion: 0.2.*
       extraValueFiles:
@@ -118,23 +104,22 @@ clusterGroup:
     node-health-check-operator:
       name: node-health-check-operator
       namespace: openshift-workload-availability
-      project: resilient
+      argoProject: resilient
       chart: node-health-check-operator
       chartVersion: 0.1.*
 
     external-dns-operator:
       name: external-dns-operator
       namespace: external-dns-operator
-      project: resilient
+      argoProject: resilient
       chart: external-dns-operator
       chartVersion: 0.1.*
 
     adp-data-protection:
       name: adp-data-protection-application
       namespace: openshift-adp
-      project: resilient
-      repoURL: https://github.com/validatedpatterns/oadp-data-protection-application-chart.git
-      chartVersion: main
-      path: "."
+      argoProject: resilient
+      chart: data-protection-application
+      chartVersion: 0.0.*
 
   managedClusterGroups: []

@@ -7,16 +7,16 @@
 clusterOverrides:
   primary:
     name: ocp-primary
-    version: 4.18.7
+    version: 4.22.1
     install_config:
       metadata:
         name: ocp-primary
       platform:
         aws:
-          region: us-west-1
+          region: ca-central-1
   secondary:
     name: ocp-secondary
-    version: 4.18.7
+    version: 4.22.1
     install_config:
       metadata:
         name: ocp-secondary
@@ -24,7 +24,7 @@ clusterOverrides:
         aws:
           region: us-east-1
 
-# DRPC overrides (preferredCluster defaults to primary if unset)
+# DRPC preferredCluster must be the ACM ManagedCluster name, not install_config.metadata.name.
 drpc:
   preferredCluster: ocp-primary
   protectedNamespaces:

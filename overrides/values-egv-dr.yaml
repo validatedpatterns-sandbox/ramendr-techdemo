@@ -12,7 +12,6 @@ vmDefaults:
   os: rhel9
   storage: 30Gi
   memory: 4Gi
-  machineType: pc-q35-rhel8.4.0
   cores: 1
   sockets: 1
   threads: 1

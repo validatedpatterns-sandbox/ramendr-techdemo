@@ -108,8 +108,9 @@ clusterGroup:
       name: opp-policy
       namespace: openshift
       argoProject: opp
-      chart: opp-policy-chart
-      chartVersion: 0.0.*      
+      repoURL: https://github.com/OAharoni-RedHat/opp-policy-chart.git
+      chartVersion: test-manual
+      path: .
       annotations:
         argocd.argoproj.io/sync-wave: "5"
       syncPolicy:
@@ -138,8 +139,9 @@ clusterGroup:
       name: regional-dr
       namespace: regional-dr
       argoProject: opp
-      chart: regionaldr-with-virt
-      chartVersion: 0.0.*
+      repoURL: https://github.com/validatedpatterns/regionaldr-with-virt-chart.git
+      chartVersion: test-manual
+      path: .
       annotations:
         argocd.argoproj.io/sync-wave: "10"
       syncPolicy:

@@ -127,13 +127,36 @@ clusterGroup:
           - PrunePropagationPolicy=foreground
           - RespectIgnoreDifferences=true
           - ServerSideApply=true
-      extraValueFiles:
-        - '/overrides/values-cluster-names.yaml'
       ignoreDifferences:
       - group: operators.openshift.io
         kind: Console
         jsonPointers:
           - /spec/plugins
+
+    odf-dr:
+      name: odf-dr
+      namespace: regional-dr
+      argoProject: opp
+      repoURL: https://github.com/OAharoni-RedHat/odf-dr-chart.git
+      chartVersion: test-manual
+      path: .
+      annotations:
+        argocd.argoproj.io/sync-wave: "8"
+      syncPolicy:
+        automated: {}
+        retry:
+          limit: 60
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - RespectIgnoreDifferences=true
+      extraValueFiles:
+        - '/overrides/values-cluster-names.yaml'
+      ignoreDifferences:
+        - group: internal.open-cluster-management.io
+          kind: ManagedClusterInfo
 
     rdr:
       name: regional-dr
@@ -146,7 +169,7 @@ clusterGroup:
         argocd.argoproj.io/sync-wave: "10"
       syncPolicy:
         automated: {}
-        # We have to wait for the clusters to build, whcih can take a long time
+        # We have to wait for the clusters to build, which can take a long time
         retry:
           limit: 60
           backoff:

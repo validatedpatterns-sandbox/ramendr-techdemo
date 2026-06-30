@@ -139,7 +139,7 @@ clusterGroup:
       name: regional-dr
       namespace: regional-dr
       argoProject: opp
-      repoURL: https://github.com/validatedpatterns/regionaldr-with-virt-chart.git
+      repoURL: https://github.com/OAharoni-RedHat/regionaldr-with-virt-chart.git
       chartVersion: test-manual
       path: .
       annotations:

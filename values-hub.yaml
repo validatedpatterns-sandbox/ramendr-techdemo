@@ -138,7 +138,7 @@ clusterGroup:
       namespace: regional-dr
       argoProject: opp
       repoURL: https://github.com/OAharoni-RedHat/odf-dr-chart.git
-      chartVersion: test-manual
+      chartVersion: main
       path: .
       annotations:
         argocd.argoproj.io/sync-wave: "8"

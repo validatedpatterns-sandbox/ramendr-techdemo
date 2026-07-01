@@ -137,7 +137,7 @@ clusterGroup:
       name: odf-dr
       namespace: regional-dr
       argoProject: opp
-      repoURL: https://github.com/OAharoni-RedHat/odf-dr-chart.git
+      repoURL: https://github.com/validatedpatterns/odf-dr-chart.git
       chartVersion: main
       path: .
       annotations:

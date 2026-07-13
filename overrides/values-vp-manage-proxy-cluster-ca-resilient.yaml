@@ -1,0 +1,15 @@
+---
+# Spoke-mode overrides for vp-manage-proxy-cluster-ca-chart.
+# Enables the differential CA bundle (cluster CAs only, no system trust store)
+# for consumers like Velero/OADP that need private cluster CAs without the
+# full system CA package. The by-label bundle targets namespaces labeled with
+# cluster-ca.vp.io/differential-ca-target: "true" (e.g. openshift-adp).
+# ConfigMap data key is "cabundle" (no dots — YAML-safe for Ramen/Velero).
+trustManager:
+  differentialBundle:
+    enabled: true
+    targetKey: cabundle
+    byNamespaceNameBundle:
+      enabled: true
+    byLabelBundle:
+      enabled: true

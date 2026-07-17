@@ -20,6 +20,9 @@ clusterGroup:
     altramen:
       name: nnevin-odf-multicluster-orchestrator-catalog
       image: quay.io/nnevin/odf-multicluster-orchestrator-catalog:idmap
+    rhdrramen:
+      name: sughosh-rhdr-catalog
+      image: quay.io/sughosh/odf-multicluster-orchestrator-catalog:idmap
 
   subscriptions:
 #    aap-operator:
@@ -34,7 +37,8 @@ clusterGroup:
 
     odf-multicluster-orchestrator:
       name: odf-multicluster-orchestrator
-      source: nnevin-odf-multicluster-orchestrator-catalog
+      # source: nnevin-odf-multicluster-orchestrator-catalog
+      source: sughosh-rhdr-catalog
       namespace: openshift-operators
 
 #    openshift-data-foundation:

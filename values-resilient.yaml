@@ -87,9 +87,8 @@ clusterGroup:
       name: vp-manage-proxy-cluster-ca
       namespace: vp-manage-proxy-cluster-ca
       argoProject: resilient
-      repoURL: https://github.com/mhjacks/vp-manage-proxy-cluster-ca-chart
-      path: "."
-      chartVersion: refactor/trust-manager-bundle
+      chart: vp-manage-proxy-cluster-ca
+      chartVersion: 0.0.*
       extraValueFiles:
         - $patternref/overrides/values-vp-manage-proxy-cluster-ca-resilient.yaml
       syncPolicy:

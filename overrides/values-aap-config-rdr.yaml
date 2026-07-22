@@ -1,4 +1,4 @@
 ---
 agof:
-  iac_repo: https://github.com/OAharoni-RedHat/ramendr-techdemo-config-as-code.git
+  iac_repo: https://github.com/validatedpatterns-demos/ramendr-techdemo-config-as-code.git
   iac_revision: main

@@ -6,27 +6,27 @@
 
 clusterOverrides:
   primary:
-    name: oa-rdr-primary
-    version: 4.20.14
+    name: ocp-primary
+    version: 4.22.1
     install_config:
       metadata:
-        name: oa-rdr-primary
+        name: ocp-primary
       platform:
         aws:
           region: ca-central-1
   secondary:
-    name: oa-rdr-secondary
-    version: 4.20.14
+    name: ocp-secondary
+    version: 4.22.1
     install_config:
       metadata:
-        name: oa-rdr-secondary
+        name: ocp-secondary
       platform:
         aws:
           region: us-east-1
 
 # DRPC preferredCluster must be the ACM ManagedCluster name (ocp-primary):
 drpc:
-  preferredCluster: oa-rdr-primary
+  preferredCluster: ocp-primary
   protectedNamespaces:
     - gitops-vms
     - boutique

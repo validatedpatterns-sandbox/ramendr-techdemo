@@ -148,9 +148,8 @@ clusterGroup:
       name: vp-manage-proxy-cluster-ca
       namespace: vp-manage-proxy-cluster-ca
       argoProject: hub
-      repoURL: https://github.com/mhjacks/vp-manage-proxy-cluster-ca-chart
-      path: "."
-      chartVersion: refactor/trust-manager-bundle
+      chart: vp-manage-proxy-cluster-ca
+      chartVersion: 0.0.*
       extraValueFiles:
         - $patternref/overrides/values-vp-manage-proxy-cluster-ca-hub.yaml
       annotations:
@@ -188,9 +187,8 @@ clusterGroup:
       name: odf-dr
       namespace: regional-dr
       argoProject: opp
-      repoURL: https://github.com/OAharoni-RedHat/odf-dr-chart
-      path: "."
-      chartVersion: ssl-enabling-test
+      chart: odf-dr-chart
+      chartVersion: 0.0.*
       annotations:
         argocd.argoproj.io/sync-wave: "8"
       syncPolicy:

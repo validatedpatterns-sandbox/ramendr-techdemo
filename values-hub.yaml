@@ -17,6 +17,9 @@ clusterGroup:
       operatorGroup: true
       targetNamespaces: []
     cluster-ca-mgt: {}
+    cert-manager-operator: {}
+    cert-manager: {}
+    vp-manage-proxy-cluster-ca: {}
 
   subscriptions:
     aap-operator:
@@ -41,6 +44,15 @@ clusterGroup:
     openshift-data-foundation:
       name: odf-operator
       namespace: openshift-storage
+
+    cert-manager:
+      name: openshift-cert-manager-operator
+      namespace: cert-manager-operator
+      channel: stable-v1
+      config:
+        env:
+          - name: UNSUPPORTED_ADDON_FEATURES
+            value: "TrustManager=true"
 
   argoCD:
     resourceTrackingMethod: annotation
@@ -131,6 +143,45 @@ clusterGroup:
         kind: Console
         jsonPointers:
           - /spec/plugins
+
+    vp-manage-proxy-cluster-ca:
+      name: vp-manage-proxy-cluster-ca
+      namespace: vp-manage-proxy-cluster-ca
+      argoProject: hub
+      chart: vp-manage-proxy-cluster-ca
+      chartVersion: 0.0.*
+      extraValueFiles:
+        - $patternref/overrides/values-vp-manage-proxy-cluster-ca-hub.yaml
+      annotations:
+        argocd.argoproj.io/sync-wave: "3"
+      syncPolicy:
+        automated: {}
+        retry:
+          limit: 20
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - RespectIgnoreDifferences=true
+          - ServerSideApply=true
+          - CreateNamespace=true
+      ignoreDifferences:
+        - group: trust.cert-manager.io
+          kind: Bundle
+          jqPathExpressions:
+            - .status
+        - group: ""
+          kind: ConfigMap
+          name: vp-pattern-proxy-ca-bundle
+          namespace: openshift-config
+          jqPathExpressions:
+            - .data["ca-bundle.crt"]
+        - group: config.openshift.io
+          kind: Proxy
+          name: cluster
+          jqPathExpressions:
+            - .status
 
     odf-dr:
       name: odf-dr

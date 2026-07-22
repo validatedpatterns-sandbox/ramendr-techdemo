@@ -1,0 +1,13 @@
+---
+# Hub overrides for vp-manage-proxy-cluster-ca-chart.
+# Enables the differential CA bundle (cluster CAs only, no system trust store)
+# written to openshift-config so odf-ramen-trusted-ca can read it for
+# injecting caCertificates into ramen-hub-operator-config s3StoreProfiles.
+trustManager:
+  differentialBundle:
+    enabled: true
+    targetKey: cabundle
+    byNamespaceNameBundle:
+      enabled: true
+    byLabelBundle:
+      enabled: true
